@@ -1,4 +1,4 @@
-
+<?php
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -175,7 +175,7 @@ class WordPress_Plugin_Template_Settings {
 					$options[ $field['id'] ] = $field['default'];
 				}
 			}
-			// TO DO: apply filter for 3rd party config
+
 			add_option( $this->plugin_slug, $options );
 		}
 
