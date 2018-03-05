@@ -16,7 +16,7 @@ class WordPress_Plugin_Template_Settings {
 		$this->plugin_slug = $plugin_slug;
 		$this->plugin_name = $plugin_name;
 		$this->textdomain = str_replace('_', '-', $plugin_slug);
-		
+
 		// Initialise settings
 		add_action( 'admin_init', array( $this, 'init' ) );
 
@@ -313,11 +313,23 @@ class WordPress_Plugin_Template_Settings {
 
 	/**
 	 * Validate individual settings field
-	 * @param  string $data Inputted value
-	 * @return string       Validated value
+	 * @param  array $data Inputted value
+	 * @return array       Validated value
 	 */
 	public function validate_fields( $data ) {
-		// Validate fields here
+		// $data array contains values to be saved:
+		// either sanitize/modify $data or return false
+		// to prevent the new options to be saved
+
+		// Sanitize fields, eg. cast number field to integer
+		// $data['number_field'] = (int) $data['number_field'];
+
+		// Validate fields, eg. don't save options if the password field is empty
+		// if ( $data['password_field'] == '' ) {
+		// 	add_settings_error( $this->plugin_slug, 'no-password', __('A password is required.', $this->textdomain), 'error' );
+		// 	return false;
+		// }
+
 		return $data;
 	}
 
@@ -335,7 +347,7 @@ class WordPress_Plugin_Template_Settings {
 
 		<!-- Tab navigation starts -->
 		<h2 class="nav-tab-wrapper settings-tabs hide-if-no-js">
-			<?php 
+			<?php
 			foreach( $this->settings as $section => $data ) {
 				echo '<a href="#' . $section . '" class="nav-tab">' . $data['title'] . '</a>';
 			}
